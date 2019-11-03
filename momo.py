@@ -8,21 +8,21 @@ db = sqlite3.connect('mabase.db')
 
 cursor = db.cursor()
 
-# cursor.execute("""
-#CREATE TABLE IF NOT EXISTS users(
-#     id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
-#     isbn INTEGER,
-#     name TEXT,
-#     price TEXT,
-#""     date TEXT
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS users(
+     id INTEGER PRIMARY KEY AUTOINCREMENT,
+     isbn INTEGER,
+     name TEXT,
+     price TEXT,
+     date TEXT
     
-#)
-#""")
+)
+""")
 
-# db.commit()
+
 
 date= datetime.datetime.now()
-isbn="9782729894931"
+isbn=input("isbn ?:  ")
 driver = webdriver.Chrome("C:/Users/adelas93/PycharmProjects/test/drivers/chromedriver.exe")
 driver.set_page_load_timeout(10)
 driver.get("https://www.momox.fr/")
@@ -41,8 +41,8 @@ print(isbn)
 print(prix)
 print(titre)
 
-cursor.execute("""INSERT INTO users(isbn,name,price,date) VALUES(?,?,?,?)""", (isbn,titre,prix,date))
-
+cursor.execute("""INSERT INTO users( id, isbn, name, price, date) VALUES(null,?,?,?, ?)""", (isbn,titre,prix,date))
+db.commit() # enregistre la base
 cursor.execute("""SELECT id, isbn, name, price, date FROM users""")
 rows = cursor.fetchall()
 print(rows)
@@ -50,3 +50,4 @@ for row in rows:
     print('{0} : {1} - {2} - {3} -{4}'.format(row[0], row[1], row[2], row[3], row[4]))
 
 print("fin")
+db.close()
