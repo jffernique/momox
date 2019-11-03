@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS users(
 
 date= datetime.datetime.now()
 isbn=input("isbn ?:  ")
-driver = webdriver.Chrome("C:/Users/adelas93/PycharmProjects/test/drivers/chromedriver.exe")
+driver = webdriver.Chrome("C:/dev/chromedriver.exe")
 driver.set_page_load_timeout(10)
 driver.get("https://www.momox.fr/")
 driver.minimize_window()
