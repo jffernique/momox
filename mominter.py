@@ -38,7 +38,10 @@ def prix_isbn():
     time.sleep(4)
     driver.find_element_by_id("buttonMediaSearchSubmit").click()
     time.sleep(4)
-    prix = driver.find_element_by_class_name("searchresult-price").text
+    try:
+        prix = driver.find_element_by_class_name("searchresult-price").text
+    except:
+        prix =str("pas de prix")
     titre = driver.find_element_by_class_name("product-title").text
     driver.quit()
 
@@ -58,7 +61,6 @@ def prix_isbn():
     #print("fin")
     db.close()
     lblprix['text']="Le prix est de "+str(prix)
-    champisbn.delete(0,END)
     champisbn.focus_set()
 
 
