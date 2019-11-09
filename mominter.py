@@ -41,7 +41,7 @@ def prix_isbn():
     try:
         prix = driver.find_element_by_class_name("searchresult-price").text
     except:
-        prix =str("pas de prix")
+        prix =str(" => Pas de prix")
     titre = driver.find_element_by_class_name("product-title").text
     driver.quit()
 
