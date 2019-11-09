@@ -3,9 +3,14 @@ from selenium.webdriver.common.keys import Keys
 import time
 import sqlite3
 import datetime
+from tkinter import *
 
 db = sqlite3.connect('mabase.db')
-
+# fen = Tk()
+# fen.geometry("250*180")
+# label = Label(fen,text="ISBN MOMOX")
+# label.pack()
+# fen.mainloop()
 cursor = db.cursor()
 
 cursor.execute("""
@@ -23,6 +28,11 @@ CREATE TABLE IF NOT EXISTS users(
 
 date= datetime.datetime.now()
 isbn=input("isbn ?:  ")
+
+#var_texte = StringVar()
+#ligne_texte = Entry(fenetre, textvariable=var_texte, width=30)
+#ligne_texte.pack()
+
 driver = webdriver.Chrome("C:/dev/chromedriver.exe")
 driver.set_page_load_timeout(10)
 driver.get("https://www.momox.fr/")
@@ -51,3 +61,5 @@ for row in rows:
 
 print("fin")
 db.close()
+
+# fen.mainloop()
