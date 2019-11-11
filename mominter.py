@@ -11,27 +11,35 @@ py_win_keyboard_layout.change_foreground_window_keyboard_layout(0x04090409)  # s
 
 def history():
     #py_win_keyboard_layout.change_foreground_window_keyboard_layout(0x040C040C)
-
     histo = sqlite3.connect('mabase.db')
-    isbn2 = (int(champisbn.get()),)
-    cursor = histo.cursor()
 
-    # print (isbn2)
-    # cursor.execute("SELECT id, isbn, name, price, date FROM users WHERE isbn = ? ORDER BY date DESC", isbn2)
-    cursor.execute("SELECT *, oid date FROM users WHERE isbn = ? ORDER BY date DESC", isbn2)
-    rows = cursor.fetchmany(10)
-    hh = ''
 
-    for row in rows:
-        #hh = ('{0} : {1} - {2} - {3} -{4}'.format(row[0], row[4], row[1], row[2], row[3]))
-        hh += str(row) + "\n"
+    try:
 
-        lblhisto = Label(fen, text=hh)
+        cursor = histo.cursor()
+        isbn2 = (int(champisbn.get()),)
+        # print (isbn2)
+        # cursor.execute("SELECT id, isbn, name, price, date FROM users WHERE isbn = ? ORDER BY date DESC", isbn2)
+        cursor.execute("SELECT *, oid date FROM users WHERE isbn = ? ORDER BY date DESC", isbn2)
+        rows = cursor.fetchmany(10)
+        hh = ''
 
-        lblhisto.grid(row=8,column=0,columnspan=2)
+        for row in rows:
+            # hh = ('{0} : {1} - {2} - {3} -{4}'.format(row[0], row[4], row[1], row[2], row[3]))
+            hh += str(row[4]) + "  ---->  " + str(row[3]) + "\n"
+            lblhisto = Label(fen, text=hh)
+            lblhisto.grid(row=8, column=0, columnspan=2)
 
+
+
+
+    except:
+        lblhisto = Label(fen, text="Pas d'historique manque ISBN")
+        lblhisto.grid(row=8, column=0, columnspan=2)
 
     histo.close()
+
+
 
 
 def prix_isbn():
@@ -92,17 +100,17 @@ def prix_isbn():
 # Interface GUI
 fen = Tk()
 fen.title('MOMOX PRICE')
-fen.geometry("800x300")
+fen.geometry("300x400")
 lblnom = Label(fen, text="ISBN MOMOX")
 champisbn = Entry(fen)
 ok = Button(fen, text="Valider ISBN", command=prix_isbn)
 histok = Button(fen, text="Historique", command=history)
 lblprix = Label(fen, text="Prix: ")
-lblnom.grid(row=1,column=0)
-champisbn.grid(row=2,column=0)
-lblprix.grid(row=3,column=0)
-ok.grid(row=4,column=0)
-histok.grid(row=5,column=0)
+lblnom.grid(row=1,column=0,padx=10)
+champisbn.grid(row=2,column=0,padx=10)
+lblprix.grid(row=3,column=0,padx=10)
+ok.grid(row=4,column=0,padx=10,pady=10,ipadx=96)
+histok.grid(row=5,column=0,padx=10,pady=10,ipadx=100)
 
 champisbn.focus_set()
 
