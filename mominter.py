@@ -5,9 +5,9 @@ import sqlite3
 import datetime
 from tkinter import *
 import py_win_keyboard_layout
-
+# print(py_win_keyboard_layout.get_foreground_window_keyboard_layout())
 py_win_keyboard_layout.change_foreground_window_keyboard_layout(0x04090409)  # scanner code barre ne fonctionnant qu'en UK
-
+py_win_keyboard_layout.change_foreground_window_keyboard_layout(0x08090809)
 
 def history():
     #py_win_keyboard_layout.change_foreground_window_keyboard_layout(0x040C040C)
